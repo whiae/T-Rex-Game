@@ -4,6 +4,7 @@ import os
 
 WIDTH=800
 HEIGHT=500
+
 FPS=60
 TITLE="T-Rex Game"
 
@@ -15,6 +16,7 @@ PLAYER_GRAV=0.8
 #define colors
 WHITE=(255,255,255)
 GREY=(247,247,247)
+
 
 vec=pygame.math.Vector2
 
@@ -31,6 +33,7 @@ class Dino(pygame.sprite.Sprite):
         self.image.set_colorkey(GREY) #the background of the dino is light grey, so we should tell python to ignore this colour
         self.rect=self.image.get_rect()
         self.rect.center=(WIDTH/3,HEIGHT/(4/3)) #you can set here the position of the dinosaur on the screen
+
         self.pos=vec(WIDTH/3,HEIGHT/(4/3))
         self.vel=vec(0,0) #velocity
         self.acc=vec(0,0) #acceleration
@@ -76,6 +79,7 @@ class Platform(pygame.sprite.Sprite):
         self.rect.x=x
         self.rect.y=y
 
+
 #initialize pygame and create game window
 pygame.init()
 screen=pygame.display.set_mode((WIDTH, HEIGHT)) #it sets the screen
@@ -94,6 +98,15 @@ platforms.add(p1)
 all_sprites.add(p1)
 
 
+pygame.display.set_caption("T-Rex Game") #it sets the title of the game window
+clock=pygame.time.Clock()
+
+#here's a group for all the sprites, we can add dino, cacti and other stuff here
+#you can change it if you want :P
+all_sprites=pygame.sprite.Group()
+player=Dino()
+all_sprites.add(player)
+
 # Game loop
 running=True
 while running:
@@ -104,17 +117,21 @@ while running:
         #check for closing window
         if event.type==pygame.QUIT:
             running=False
+
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 player.jump()
 
+
     #Update
     all_sprites.update()
+
 
     ground_collisions=pygame.sprite.spritecollide(player,platforms,False)
     if ground_collisions:
         player.pos.y=ground_collisions[0].rect.top
         player.vel.y=0
+
 
     #Draw/render
     screen.fill(WHITE)
