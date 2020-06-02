@@ -46,8 +46,8 @@ class Dino(pygame.sprite.Sprite):
         self.image.set_colorkey(GREY) #the background of the dino is light grey, so we should tell python to ignore this colour
         self.rect=self.image.get_rect()
         self.rect.center=(250,320) #you can set here the position of the dinosaur on the screen
-
         self.pos=vec(250,320)
+    
         self.vel=vec(0,0) #velocity
         self.acc=vec(0,0) #acceleration
 
@@ -213,7 +213,6 @@ while True:
         player.pos.y=ground_collisions[0].rect.top
         player.vel.y=0
 
-    #Draw/render
     # pygame.display.update() #nie wiem czy ta linijka jest potrzebna, bo jak ją zostawiam to dinozaur miga; zostawię ją tu na wszelki wypadek, ale jako komentarz
     all_sprites.draw(DS)
     #flip AFTER drawing the display
