@@ -29,7 +29,7 @@ x = 0
 #Player properties
 PLAYER_ACC=0.5
 PLAYER_FRICTION=-0.12 #negative number, because it should slow us down
-PLAYER_GRAV=0.4
+PLAYER_GRAV=0.45
 
 #define colors
 WHITE=(255,255,255)
@@ -40,24 +40,24 @@ vec=pygame.math.Vector2
 #klasy
 class Dino(pygame.sprite.Sprite):
     #sprite for the Player
-    def __init__(self):
+    def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
         self.image=pygame.image.load(os.path.join(img_folder,"dino.png")).convert() #here's the picture of a player
         self.image.set_colorkey(GREY) #the background of the dino is light grey, so we should tell python to ignore this colour
         self.rect=self.image.get_rect()
-        self.rect.center=(WIDTH/3,HEIGHT/2) #you can set here the position of the dinosaur on the screen
-
-        self.pos=vec(WIDTH/3,HEIGHT/2)
+        self.rect.center=(250,320) #you can set here the position of the dinosaur on the screen
+        self.pos=vec(250,320)
+    
         self.vel=vec(0,0) #velocity
         self.acc=vec(0,0) #acceleration
 
     def jump(self):
         #jump only if standing on a platform
-        self.rect.x+=1
+        self.rect.y+=1
         collisions=pygame.sprite.spritecollide(player,platforms,False)
-        self.rect.x-=1
+        self.rect.y-=1
         if collisions:
-            self.vel.y=-25
+            self.vel.y=-20
 
     def update(self):
         #we let him move right and left when we press left and right keys
@@ -69,15 +69,27 @@ class Dino(pygame.sprite.Sprite):
             self.acc.x=PLAYER_ACC
 
         #apply friction
-        self.acc+=self.vel * PLAYER_FRICTION
+        self.acc.x += self.vel.x * PLAYER_FRICTION
+        self.acc.y += (self.vel.y * 0.5 * PLAYER_FRICTION)
+        #poniższe linijki tylko do sprawdzenia wartości zmiennych
+        # print(self.acc)
+        # print(self.vel)
+        # print(PLAYER_FRICTION)
         #equations of motion
         self.vel+=self.acc
         self.pos+=self.vel+0.5*self.acc
+        print(self.pos)
         #wrap around the sides of the screen
         if self.pos.x>WIDTH-30:
             self.pos.x=WIDTH-30
         if self.pos.x<0+30:
             self.pos.x=0+30
+
+        self.pos.x=int(round(self.pos.x,0))
+        self.pos.y=int(round(self.pos.y,0))
+        #poniższe linijki tylko do sprawdzenia wartości zmiennych
+        print(self.pos.x)
+        print(self.pos.y)
 
         self.rect.midbottom=self.pos
 
@@ -101,6 +113,7 @@ class cactus_1(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x + 2, self.y + 2, self.width - 20, self.height - 5)
         pygame.draw.rect(DS, (255,0,0), self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -114,6 +127,7 @@ class cactus_2(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus2.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x + 2, self.y + 2, self.width - 20, self.height - 5)
         pygame.draw.rect(DS, (255,0,0), self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -127,6 +141,7 @@ class cactus_3(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x + 2, self.y + 2, self.width - 20, self.height - 5)
         pygame.draw.rect(DS, (255,0,0), self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -141,7 +156,7 @@ all_sprites=pygame.sprite.Group()
 platforms=pygame.sprite.Group()
 
 p1=Platform(0,320,WIDTH,40)
-player=Dino()
+player=Dino([320,250])
 
 platforms.add(p1)
 all_sprites.add(player)
@@ -186,7 +201,7 @@ while True:
     for obstacle in obstacles:
         obstacle.draw(DS)
     for obstacle in obstacles:
-        obstacle.x -= 1.5
+        obstacle.x -= 2
         if obstacle.x < obstacle.width * -1:
             obstacles.pop(obstacles.index(obstacle))
 
