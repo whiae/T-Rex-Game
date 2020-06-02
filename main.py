@@ -162,6 +162,21 @@ platforms.add(p1)
 all_sprites.add(player)
 all_sprites.add(p1)
 
+#sound function and files
+def create_sound(name):
+    fullname = "snd/" + name     # path + name of the sound file
+    sound = pygame.mixer.Sound(fullname)
+    return sound
+
+music = create_sound('music.wav')
+music.set_volume(0.02)
+jump_sound = create_sound('jump.wav')
+jump_sound.set_volume(3.0)
+die_sound = create_sound('die.wav')
+die_sound.set_volume(3.0)
+checkPoint_sound = create_sound('checkPoint.wav')
+checkPoint_sound.set_volume(3.0)
+
 # Game loop
 obstacles=[]
 pygame.time.set_timer(USEREVENT+2, random.randint(1000, 3500)) #game timer
@@ -169,6 +184,9 @@ while True:
     DS.fill((GREY))
     #keep loop running at the right speed
     CLOCK.tick(FPS)
+    #infinite music
+    if pygame.mixer.get_init() != None:
+        music.play(-1)
     #Process input(events)
     for event in pygame.event.get():
         #check for closing window
@@ -179,6 +197,9 @@ while True:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 player.jump()
+                #stop music, play sound effect once
+                music.stop()
+                jump_sound.play(0)
 
         if event.type == USEREVENT+2:
             r = random.randrange(0,3)
