@@ -68,7 +68,7 @@ vec=pygame.math.Vector2
 #klasy
 class Dino(pygame.sprite.Sprite):
     #sprite for the Player
-    def __init__(self,pos):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image=pygame.image.load(os.path.join(img_folder,"dino.png")).convert() #here's the picture of a player
         self.image.set_colorkey(GREY) #the background of the dino is light grey, so we should tell python to ignore this colour
@@ -234,7 +234,7 @@ all_sprites=pygame.sprite.Group()
 platforms=pygame.sprite.Group()
 
 p1=Platform(0,320,WIDTH,40)
-player=Dino([320,250])
+player=Dino()
 
 platforms.add(p1)
 all_sprites.add(player)
@@ -408,7 +408,7 @@ while not game_over:
                     waiting = False
                     game_over = False
                     score = 0
-                    player=Dino([320,250])
+                    player=Dino()
                     all_sprites=pygame.sprite.Group()
                     platforms=pygame.sprite.Group()
                     p1=Platform(0,320,WIDTH,40)
