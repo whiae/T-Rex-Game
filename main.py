@@ -31,7 +31,6 @@ DS = pygame.display.set_mode((WIDTH, HEIGHT)) #it sets the screen
 pygame.display.set_caption("T-Rex Game") #it sets the title of the game window
 FPS = 120
 
-
 background = pygame.image.load(os.path.join(img_folder,"ground.png")).convert()
 x = 0
 
@@ -198,6 +197,7 @@ class cactus_small_1(object):
         self.hitbox = (self.x-6, self.y-6, 36, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
+        
 class cactus_small_2(object):
     def __init__(self,x,y,width,height):
         self.x = x
@@ -218,10 +218,12 @@ class cactus_small_3(object):
         self.height = height
 
     def draw(self,DS):
+
         self.img = pygame.image.load(os.path.join(img_folder,"small_cactus3.png")).convert()
         self.hitbox = (self.x-6, self.y-6, 36, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
+
 def redrawWindow():
 	for object in objects:
 		object.draw(DS)
@@ -254,6 +256,7 @@ checkPoint_sound = create_sound('checkPoint.wav')
 obstacles=[]
 pygame.time.set_timer(USEREVENT+2, random.randint(1000, 2000)) #game timer
 
+
 game_over = False
 
 
@@ -272,6 +275,7 @@ while not game_over:
 
         if (player.rect.x + 23) > obstacle.hitbox[0] and (player.rect.x - 23) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 24) > obstacle.hitbox[1] and (player.rect.y - 24) < obstacle.hitbox[1] + obstacle.hitbox[3]:
+
                 print("GAME OVER")
                 game_over = True
                 if score > high_score:
@@ -290,12 +294,14 @@ while not game_over:
 
         if event.type == USEREVENT+2:
             r = random.randrange(0,7)
+
             if r == 0:
                 obstacles.append(cactus_1(1000, 270, 70, 64))
             elif r == 1:
                 obstacles.append(cactus_2(1000, 270, 70, 64))
             elif r == 2:
                 obstacles.append(cactus_3(1000, 270, 70, 64))
+
             elif r == 3:
                 obstacles.append(cactus_small_1(1000,270,70,64))
             elif r == 4:
