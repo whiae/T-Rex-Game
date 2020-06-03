@@ -31,7 +31,6 @@ DS = pygame.display.set_mode((WIDTH, HEIGHT)) #it sets the screen
 pygame.display.set_caption("T-Rex Game") #it sets the title of the game window
 FPS = 120
 
-
 background = pygame.image.load(os.path.join(img_folder,"ground.png")).convert()
 x = 0
 
@@ -142,7 +141,7 @@ class cactus_1(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
-        self.hitbox = (self.x-5, self.y-6, 31, 80)
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
@@ -158,7 +157,7 @@ class cactus_2(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus2.png")).convert()
-        self.hitbox = (self.x-5, self.y-6, 31, 80)
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
@@ -171,7 +170,57 @@ class cactus_3(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
-        self.hitbox = (self.x-5, self.y-6, 31, 80)
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x,self.y))
+class cactus_small_1(object):
+    def __init__(self,x,y,width,height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self,DS):
+        self.img = pygame.image.load(os.path.join(img_folder,"small_cactus1.png")).convert()
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x,self.y))
+class cactus_small_1(object):
+    def __init__(self,x,y,width,height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self,DS):
+        self.img = pygame.image.load(os.path.join(img_folder,"small_cactus1.png")).convert()
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x,self.y))
+        
+class cactus_small_2(object):
+    def __init__(self,x,y,width,height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self,DS):
+        self.img = pygame.image.load(os.path.join(img_folder,"small_cactus2.png")).convert()
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x,self.y))
+class cactus_small_3(object):
+    def __init__(self,x,y,width,height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self,DS):
+
+        self.img = pygame.image.load(os.path.join(img_folder,"small_cactus3.png")).convert()
+        self.hitbox = (self.x-6, self.y-6, 36, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
@@ -205,7 +254,8 @@ checkPoint_sound = create_sound('checkPoint.wav')
 
 # Game loop
 obstacles=[]
-pygame.time.set_timer(USEREVENT+2, random.randint(1000, 3500)) #game timer
+pygame.time.set_timer(USEREVENT+2, random.randint(1000, 2000)) #game timer
+
 
 game_over = False
 
@@ -219,10 +269,13 @@ while not game_over:
     #Process input(events)
 
     for obstacle in obstacles:
-        # if położenie x dinozaura > poczatek hitboxa i < koniec hitboxa:
-        #     + jeśli położenie y dinozaura jest > położenie górnej krawędzi hitboxa i < położenie dolnej:
-        if (player.rect.x + 23) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
-            if (player.rect.y + 24) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
+    # if player.rect.x > poczatek hitboxa i < koniec hitboxa:
+    #     + jeśli położenie y dinozaura jest > położenie górnej krawędzi hitboxa i < położenie dolnej:
+    #         print("Kolizja!!!!!!!1")
+
+        if (player.rect.x + 23) > obstacle.hitbox[0] and (player.rect.x - 23) < obstacle.hitbox[0] + obstacle.hitbox[2]:
+            if (player.rect.y + 24) > obstacle.hitbox[1] and (player.rect.y - 24) < obstacle.hitbox[1] + obstacle.hitbox[3]:
+
                 print("GAME OVER")
                 game_over = True
                 if score > high_score:
@@ -240,14 +293,22 @@ while not game_over:
                 player.jump()
 
         if event.type == USEREVENT+2:
-            r = random.randrange(0,3)
+            r = random.randrange(0,7)
+
             if r == 0:
                 obstacles.append(cactus_1(1000, 270, 70, 64))
             elif r == 1:
                 obstacles.append(cactus_2(1000, 270, 70, 64))
             elif r == 2:
                 obstacles.append(cactus_3(1000, 270, 70, 64))
-        pygame.time.set_timer(USEREVENT+2, random.randint(1000, 3500))
+
+            elif r == 3:
+                obstacles.append(cactus_small_1(1000,270,70,64))
+            elif r == 4:
+                obstacles.append(cactus_small_2(1000, 270, 70, 64))
+            elif r == 5:
+                obstacles.append(cactus_small_3(1000, 270, 70, 64))
+        pygame.time.set_timer(USEREVENT+2, random.randint(1000, 2000))
 
     #scrolling background
     rel_x = x % background.get_rect().width
