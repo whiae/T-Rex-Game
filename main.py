@@ -198,7 +198,7 @@ class cactus_small_1(object):
         self.hitbox = (self.x-6, self.y-6, 36, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
-        
+
 class cactus_small_2(object):
     def __init__(self,x,y,width,height):
         self.x = x
@@ -315,14 +315,14 @@ while not game_over:
     DS.blit(background, (rel_x - background.get_rect().width, 300))
     if rel_x < WIDTH:
          DS.blit(background, (rel_x, 300))
-    x -= 1.5
+    x -= 2
 
     # Loops through all obstacles
     for obstacle in obstacles:
         obstacle.draw(DS)
     for obstacle in obstacles:
         obstacle.x -= 2
-        if obstacle.x < obstacle.width * -1:
+        if obstacle.x < obstacle.width * -2:
             obstacles.pop(obstacles.index(obstacle))
 
     #Update
