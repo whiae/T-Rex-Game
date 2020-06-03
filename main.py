@@ -347,7 +347,7 @@ while not game_over:
                     waiting = False
                     game_over = False
                     score = 0
-                    player=Dino()
+                    player=Dino([320,250])
                     all_sprites=pygame.sprite.Group()
                     platforms=pygame.sprite.Group()
                     p1=Platform(0,320,WIDTH,40)
