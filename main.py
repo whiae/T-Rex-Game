@@ -131,7 +131,7 @@ class cactus_1(object):
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
         self.hitbox = (self.x-6, self.y-6, 36, 80)
-        pygame.draw.rect(DS, (255,0,0), self.hitbox, 2)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
     # def hit(self):
@@ -147,7 +147,7 @@ class cactus_2(object):
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus2.png")).convert()
         self.hitbox = (self.x-6, self.y-6, 36, 80)
-        pygame.draw.rect(DS, (255,0,0), self.hitbox, 2)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
 class cactus_3(object):
@@ -160,7 +160,7 @@ class cactus_3(object):
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
         self.hitbox = (self.x-6, self.y-6, 36, 80)
-        pygame.draw.rect(DS, (255,0,0), self.hitbox, 2)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
 def redrawWindow():
