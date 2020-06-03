@@ -76,7 +76,7 @@ class Dino(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.center=(250,320) #you can set here the position of the dinosaur on the screen
         self.pos=vec(250,320)
-    
+
         self.vel=vec(0,0) #velocity
         self.acc=vec(0,0) #acceleration
 
@@ -142,7 +142,7 @@ class cactus_1(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
-        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        self.hitbox = (self.x-5, self.y-6, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
@@ -158,7 +158,7 @@ class cactus_2(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus2.png")).convert()
-        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        self.hitbox = (self.x-5, self.y-6, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
@@ -171,7 +171,7 @@ class cactus_3(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
-        self.hitbox = (self.x-6, self.y-6, 36, 80)
+        self.hitbox = (self.x-5, self.y-6, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
 
@@ -219,12 +219,10 @@ while not game_over:
     #Process input(events)
 
     for obstacle in obstacles:
-    # if player.rect.x > poczatek hitboxa i < koniec hitboxa:
-    #     + jeśli położenie y dinozaura jest > położenie górnej krawędzi hitboxa i < położenie dolnej:
-    #         print("Kolizja!!!!!!!1")
-
-        if (player.rect.x + 23) > obstacle.hitbox[0] and (player.rect.x - 23) < obstacle.hitbox[0] + obstacle.hitbox[2]:
-            if (player.rect.y + 24) > obstacle.hitbox[1] and (player.rect.y - 24) < obstacle.hitbox[1] + obstacle.hitbox[3]:
+        # if położenie x dinozaura > poczatek hitboxa i < koniec hitboxa:
+        #     + jeśli położenie y dinozaura jest > położenie górnej krawędzi hitboxa i < położenie dolnej:
+        if (player.rect.x + 23) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
+            if (player.rect.y + 24) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
                 print("GAME OVER")
                 game_over = True
                 if score > high_score:
