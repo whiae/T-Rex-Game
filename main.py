@@ -39,11 +39,10 @@ x = 0
 font_name = pygame.font.match_font('Comic Sans MS')
 
 # MUSIC
-music = pygame.mixer.music.load('snd/music.wav')
+music = pygame.mixer.music.load('snd/music.mp3')
 pygame.mixer.music.set_volume(0.15)
 jump_sound = pygame.mixer.Sound('snd/jump.wav')
 die_sound = pygame.mixer.Sound('snd/die.wav')
-checkPoint_sound = pygame.mixer.Sound('snd/checkPoint.wav')
 
 
 def draw_text(surf, text, size, x, y):
@@ -329,8 +328,8 @@ while not game_over:
                     high_score = score
 
     if pygame.key.get_pressed()[pygame.K_SPACE]:
-        jump_sound.play(0)
         player.jump()
+        jump_sound.play(0)
 
     if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
         player.duck()
