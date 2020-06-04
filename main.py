@@ -67,7 +67,7 @@ high_score = 0
 # Player properties
 PLAYER_ACC = 0.5
 PLAYER_FRICTION = -0.12  # negative number, because it should slow us down
-PLAYER_GRAV = 0.45
+PLAYER_GRAV = 0.4
 
 vec = pygame.math.Vector2
 
@@ -119,11 +119,6 @@ class Dino(pygame.sprite.Sprite):
     def update(self):
         # we let him move right and left when we press left and right keys
         self.acc = vec(0, PLAYER_GRAV)
-        keystate = pygame.key.get_pressed()
-        if keystate[pygame.K_LEFT]:
-            self.acc.x = -PLAYER_ACC
-        if keystate[pygame.K_RIGHT]:
-            self.acc.x = PLAYER_ACC
 
         # apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
@@ -299,7 +294,6 @@ player = Dino()
 platforms.add(p1)
 all_sprites.add(player)
 all_sprites.add(p1)
-
 # obstacles and clouds
 obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(500, 2000))  # game timer
@@ -344,7 +338,7 @@ while not game_over:
             sys.exit()
 
         if event.type == USEREVENT + 2:
-            r = random.randrange(0, 14)
+            r = random.randrange(0, 9)
 
             if r == 0:
                 obstacles.append(cactus_1(1000, 270, 70, 64))
@@ -404,6 +398,7 @@ while not game_over:
         c.x -= 2
         if c.x < c.width * -2:
             clouds.pop(clouds.index(c))
+
     # Update
     all_sprites.update()
 
@@ -538,3 +533,5 @@ while not game_over:
                     all_sprites.add(p1)
                     obstacles = []
 pygame.quit()
+
+
