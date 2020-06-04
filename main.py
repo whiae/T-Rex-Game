@@ -67,7 +67,7 @@ high_score = 0
 # Player properties
 PLAYER_ACC = 0.5
 PLAYER_FRICTION = -0.12  # negative number, because it should slow us down
-PLAYER_GRAV = 0.45
+PLAYER_GRAV = 0.4
 
 vec = pygame.math.Vector2
 
