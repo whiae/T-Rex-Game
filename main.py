@@ -99,14 +99,9 @@ class Dino(pygame.sprite.Sprite):
         #apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
         self.acc.y += (self.vel.y * 0.5 * PLAYER_FRICTION)
-        #poniższe linijki tylko do sprawdzenia wartości zmiennych
-        # print(self.acc)
-        # print(self.vel)
-        # print(PLAYER_FRICTION)
         #equations of motion
         self.vel+=self.acc
         self.pos+=self.vel+0.5*self.acc
-        # print(self.pos)
         #wrap around the sides of the screen
         if self.pos.x>WIDTH-30:
             self.pos.x=WIDTH-30
@@ -115,17 +110,12 @@ class Dino(pygame.sprite.Sprite):
 
         self.pos.x=int(round(self.pos.x,0))
         self.pos.y=int(round(self.pos.y,0))
-        #poniższe linijki tylko do sprawdzenia wartości zmiennych
-        # print(self.pos.x)
-        # print(self.pos.y)
 
         self.rect.midbottom=self.pos
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self,x,y,w,h):
         pygame.sprite.Sprite.__init__(self)
-        # self.image=pygame.image.load(os.path.join(img_folder,"ground.png")).convert()
-        # self.image.set_colorkey(GREY)
         self.image=pygame.Surface((w,h))
         self.image.fill(GREY)
         self.rect=self.image.get_rect()
@@ -141,11 +131,10 @@ class cactus_1(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-5, self.y-1, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
-
-
 
 class cactus_2(object):
     def __init__(self,x,y,width,height):
@@ -156,6 +145,7 @@ class cactus_2(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus2.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-5, self.y-2, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -169,9 +159,11 @@ class cactus_3(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"big_cactus1.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-5, self.y-6, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
+	
 class cactus_small_1(object):
     def __init__(self,x,y,width,height):
         self.x = x
@@ -181,6 +173,7 @@ class cactus_small_1(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"small_cactus1.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-8, self.y-6, 15, 70)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -194,6 +187,7 @@ class cactus_small_1(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"small_cactus1.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-8, self.y-6, 15, 70)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -207,9 +201,11 @@ class cactus_small_2(object):
 
     def draw(self,DS):
         self.img = pygame.image.load(os.path.join(img_folder,"small_cactus2.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-6, self.y-3, 18, 70)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
+	
 class cactus_small_3(object):
     def __init__(self,x,y,width,height):
         self.x = x
@@ -218,8 +214,8 @@ class cactus_small_3(object):
         self.height = height
 
     def draw(self,DS):
-
         self.img = pygame.image.load(os.path.join(img_folder,"small_cactus3.png")).convert()
+	self.img.set_colorkey(GREY)
         self.hitbox = (self.x-10, self.y-6, 15, 60)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x,self.y))
@@ -228,8 +224,6 @@ def redrawWindow():
 	for object in objects:
 		object.draw(DS)
 
-#here's a group for all the sprites, we can add dino, cacti and other stuff here
-#you can change it if you want :P
 all_sprites=pygame.sprite.Group()
 platforms=pygame.sprite.Group()
 
