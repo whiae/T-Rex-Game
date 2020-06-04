@@ -38,12 +38,13 @@ x = 0
 
 font_name = pygame.font.match_font('Comic Sans MS')
 
-#MUSIC
+# MUSIC
 music = pygame.mixer.Sound('snd/music.wav')
 music.set_volume(0.02)
 jump_sound = pygame.mixer.Sound('snd/jump.wav')
 die_sound = pygame.mixer.Sound('snd/die.wav')
 checkPoint_sound = pygame.mixer.Sound('snd/checkPoint.wav')
+
 
 def draw_text(surf, text, size, x, y):
     # x i y to lokalizacja tekstu na ekranie
@@ -77,8 +78,9 @@ class Dino(pygame.sprite.Sprite):
     # sprite for the Player
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(os.path.join(img_folder,"dino.png")).convert() # here's the picture of a player
-        self.image.set_colorkey(GREY) #the background of the dino is light grey, so we should tell python to ignore this colour
+        self.image = pygame.image.load(os.path.join(img_folder, "dino.png")).convert()  # here's the picture of a player
+        self.image.set_colorkey(
+            GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
         self.rect = self.image.get_rect()
         self.rect.center = (250, 320)  # you can set here the position of the dinosaur on the screen
         self.pos = vec(250, 320)
@@ -99,8 +101,9 @@ class Dino(pygame.sprite.Sprite):
         self.rect.y += 1
         collisions = pygame.sprite.spritecollide(player, platforms, False)
         self.rect.y -= 1
-        self.image = pygame.image.load(os.path.join(img_folder,"ducking_dino1.png")).convert()
-        self.image.set_colorkey(GREY) #the background of the dino is light grey, so we should tell python to ignore this colour
+        self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
+        self.image.set_colorkey(
+            GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
         if collisions:
             self.vel.y = 0
 
@@ -150,6 +153,7 @@ class cactus_1(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "big_cactus1.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 5, self.y - 1, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -164,6 +168,7 @@ class cactus_2(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "big_cactus2.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 5, self.y - 2, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -177,7 +182,7 @@ class cactus_3(object):
         self.height = height
 
     def draw(self, DS):
-        self.img = pygame.image.load(os.path.join(img_folder, "big_cactus1.png")).convert()
+        self.img = pygame.image.load(os.path.join(img_folder, "big_cactus3.png")).convert()
         self.hitbox = (self.x - 5, self.y - 6, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -192,20 +197,7 @@ class cactus_small_1(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "small_cactus1.png")).convert()
-        self.hitbox = (self.x - 8, self.y - 6, 15, 70)
-        pygame.draw.rect(DS, GREY, self.hitbox, 2)
-        DS.blit(self.img, (self.x, self.y))
-
-
-class cactus_small_1(object):
-    def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-
-    def draw(self, DS):
-        self.img = pygame.image.load(os.path.join(img_folder, "small_cactus1.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 8, self.y - 6, 15, 70)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -220,6 +212,7 @@ class cactus_small_2(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "small_cactus2.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 6, self.y - 3, 18, 70)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -234,6 +227,7 @@ class cactus_small_3(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "small_cactus3.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 10, self.y - 6, 15, 60)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -252,7 +246,8 @@ class ptero(object):
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
-#clouds without hitboxes
+
+# clouds without hitboxes
 class cloud(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -265,6 +260,7 @@ class cloud(object):
         self.hitbox = (0, 0, 0, 0)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
+
 
 class cloud1(object):
     def __init__(self, x, y, width, height):
@@ -304,7 +300,7 @@ game_over = False
 while not game_over:
     score += 1
 
-    #infinite music
+    # infinite music
     music.play(-1)
 
     DS.fill((GREY))
@@ -312,12 +308,10 @@ while not game_over:
     CLOCK.tick(FPS)
     # Process input(events)
 
-
     for obstacle in obstacles:
         # if polozenie x dinozaura > poczatek hitboxa i < koniec hitboxa:
         #     + jeśli położenie y dinozaura jest > położenie górnej krawędzi hitboxa i < położenie dolnej:
         # Kolizja!!!
-
         if (player.rect.x + 30) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
@@ -335,6 +329,9 @@ while not game_over:
 
     if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
         player.duck()
+
+    if pygame.key.get_pressed()[pygame.K_SPACE]:
+        player.jump()
 
     for event in pygame.event.get():
         # check for closing window
@@ -359,7 +356,7 @@ while not game_over:
             elif r == 5:
                 obstacles.append(cactus_small_3(1000, 270, 70, 64))
 
-        #PTEROS ON DIFFERENT HEIGHT
+            # PTEROS ON DIFFERENT HEIGHT
             elif r == 6:
                 obstacles.append(ptero(1000, 230, 70, 64))
             elif r == 7:
@@ -367,7 +364,7 @@ while not game_over:
             elif r == 8:
                 obstacles.append(ptero(1000, 270, 70, 64))
 
-        #CLOUDS
+            # CLOUDS
             elif r == 9:
                 obstacles.append(cloud(1000, 210, 70, 64))
             elif r == 10:
