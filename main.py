@@ -330,8 +330,6 @@ while not game_over:
     if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
         player.duck()
 
-    if pygame.key.get_pressed()[pygame.K_SPACE]:
-        player.jump()
 
     for event in pygame.event.get():
         # check for closing window
