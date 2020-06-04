@@ -6,6 +6,8 @@ import os
 import math
 import time
 
+clock = pygame.time.Clock()
+
 # define display surface
 WIDTH = 1000
 HEIGHT = 400
@@ -36,6 +38,12 @@ x = 0
 
 font_name = pygame.font.match_font('Comic Sans MS')
 
+#MUSIC
+music = pygame.mixer.Sound('snd/music.wav')
+music.set_volume(0.02)
+jump_sound = pygame.mixer.Sound('snd/jump.wav')
+die_sound = pygame.mixer.Sound('snd/die.wav')
+checkPoint_sound = pygame.mixer.Sound('snd/checkPoint.wav')
 
 def draw_text(surf, text, size, x, y):
     # x i y to lokalizacja tekstu na ekranie
@@ -240,7 +248,34 @@ class ptero(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "ptero1.png")).convert()
-        self.hitbox = (self.x - 10, self.y - 6, 15, 60)
+        self.hitbox = (self.x - 5, self.y - 3, 35, 30)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+
+#clouds without hitboxes
+class cloud(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "cloud.png")).convert()
+        self.hitbox = (0, 0, 0, 0)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+
+class cloud1(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "cloud1.png")).convert()
+        self.hitbox = (0, 0, 0, 0)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -260,20 +295,6 @@ platforms.add(p1)
 all_sprites.add(player)
 all_sprites.add(p1)
 
-
-# sound function and files
-def create_sound(name):
-    fullname = "snd/" + name  # path + name of the sound file
-    sound = pygame.mixer.Sound(fullname)
-    return sound
-
-
-music = create_sound('music.wav')
-music.set_volume(0.05)
-jump_sound = create_sound('jump.wav')
-die_sound = create_sound('die.wav')
-checkPoint_sound = create_sound('checkPoint.wav')
-
 # Game loop
 obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
@@ -283,10 +304,14 @@ game_over = False
 while not game_over:
     score += 1
 
+    #infinite music
+    music.play(-1)
+
     DS.fill((GREY))
     # keep loop running at the right speed
     CLOCK.tick(FPS)
     # Process input(events)
+
 
     for obstacle in obstacles:
         # if polozenie x dinozaura > poczatek hitboxa i < koniec hitboxa:
@@ -297,12 +322,16 @@ while not game_over:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
                 print("GAME OVER")
+
+                die_sound.play()
+                music.stop()
                 game_over = True
                 if score > high_score:
                     high_score = score
 
     if pygame.key.get_pressed()[pygame.K_SPACE]:
         player.jump()
+        jump_sound.play()
 
     if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
         player.duck()
@@ -314,7 +343,7 @@ while not game_over:
             sys.exit()
 
         if event.type == USEREVENT + 2:
-            r = random.randrange(0, 9)
+            r = random.randrange(0, 14)
 
             if r == 0:
                 obstacles.append(cactus_1(1000, 270, 70, 64))
@@ -330,10 +359,23 @@ while not game_over:
             elif r == 5:
                 obstacles.append(cactus_small_3(1000, 270, 70, 64))
 
+        #PTEROS ON DIFFERENT HEIGHT
             elif r == 6:
-                obstacles.append(ptero(1000, 220, 70, 64))
+                obstacles.append(ptero(1000, 230, 70, 64))
             elif r == 7:
-                obstacles.append(ptero(1000, 235, 70, 64))
+                obstacles.append(ptero(1000, 240, 70, 64))
+            elif r == 8:
+                obstacles.append(ptero(1000, 270, 70, 64))
+
+        #CLOUDS
+            elif r == 9:
+                obstacles.append(cloud(1000, 210, 70, 64))
+            elif r == 10:
+                obstacles.append(cloud(1000, 180, 70, 64))
+            elif r == 11:
+                obstacles.append(cloud1(1000, 180, 70, 64))
+            elif r == 12:
+                obstacles.append(cloud1(1000, 160, 70, 64))
 
         pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))
 
