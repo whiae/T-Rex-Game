@@ -79,8 +79,7 @@ class Dino(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(os.path.join(img_folder, "dino.png")).convert()  # here's the picture of a player
-        self.image.set_colorkey(
-            GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
+        self.image.set_colorkey(GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
         self.rect = self.image.get_rect()
         self.rect.center = (250, 320)  # you can set here the position of the dinosaur on the screen
         self.pos = vec(250, 320)
@@ -102,10 +101,21 @@ class Dino(pygame.sprite.Sprite):
         collisions = pygame.sprite.spritecollide(player, platforms, False)
         self.rect.y -= 1
         self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
-        self.image.set_colorkey(
-            GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
-        if collisions:
-            self.vel.y = 0
+        self.image.set_colorkey(GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
+        self.rect = self.image.get_rect()
+        self.rect.center = (250, 330)  # you can set here the position of the dinosaur on the screen
+        self.pos = vec(250, 320)
+
+    def notduck(self):
+        # standup only if standing on a platform
+        self.rect.y += 1
+        collisions = pygame.sprite.spritecollide(player, platforms, False)
+        self.rect.y -= 1
+        self.image = pygame.image.load(os.path.join(img_folder, "dino1.png")).convert()
+        self.image.set_colorkey(GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
+        self.rect = self.image.get_rect()
+        self.rect.center = (250, 320)  # you can set here the position of the dinosaur on the screen
+        self.pos = vec(250, 320)
 
     def update(self):
         # we let him move right and left when we press left and right keys
@@ -228,7 +238,7 @@ class cactus_small_3(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "small_cactus3.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 10, self.y - 6, 15, 60)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -298,10 +308,11 @@ pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
 game_over = False
 
 while not game_over:
-    score += 1
+    score += 0.1
 
     # infinite music
-    music.play(-1)
+    if pygame.mixer.get_init() != None:
+         music.play(-1)
 
     DS.fill((GREY))
     # keep loop running at the right speed
@@ -315,23 +326,22 @@ while not game_over:
         if (player.rect.x + 30) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
-                print("GAME OVER")
-
                 die_sound.play()
-                music.stop()
                 game_over = True
                 if score > high_score:
                     high_score = score
 
     if pygame.key.get_pressed()[pygame.K_SPACE]:
         player.jump()
-        jump_sound.play()
+        if pygame.mixer.get_init() != None:
+            jump_sound.play()
 
     if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
         player.duck()
 
-    if pygame.key.get_pressed()[pygame.K_SPACE]:
-        player.jump()
+    if pygame.key.get_pressed()[pygame.K_UP] and not pygame.key.get_pressed()[pygame.K_SPACE]:
+        player.notduck()
+
 
     for event in pygame.event.get():
         # check for closing window
@@ -404,65 +414,66 @@ while not game_over:
 
     if high_score < 10:
         if score < 10:
-            draw_text(DS, "HI 0000" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 0000" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 0000" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 0000" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 0000" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     elif high_score < 100:
         if score < 10:
-            draw_text(DS, "HI 000" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 000" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 000" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 000" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 000" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     elif high_score < 1000:
         if score < 10:
-            draw_text(DS, "HI 00" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 00" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 00" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 00" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 00" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     elif high_score < 10000:
         if score < 10:
-            draw_text(DS, "HI 0" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 0" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 0" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 0" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 0" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     else:
         if score < 10:
-            draw_text(DS, "HI " + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI " + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI " + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI " + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI " + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
 
     # flip AFTER drawing the display
     pygame.display.flip()
 
     while game_over:
         show_game_over_screen()
+        music.stop()
         waiting = True
         while waiting:
             for event in pygame.event.get():
@@ -470,17 +481,16 @@ while not game_over:
                     waiting = False
                     pygame.quit()
                     sys.exit()
-            if (event.type == KEYDOWN and event.key == K_SPACE) or event.type == pygame.MOUSEBUTTONDOWN:
-                waiting = False
-                game_over = False
-                score = 0
-                player = Dino()
-                all_sprites = pygame.sprite.Group()
-                platforms = pygame.sprite.Group()
-                p1 = Platform(0, 320, WIDTH, 40)
-                platforms.add(p1)
-                all_sprites.add(player)
-                all_sprites.add(p1)
-                obstacles = []
-
+                if (event.type == KEYDOWN and event.key == pygame.K_RETURN) or event.type == pygame.MOUSEBUTTONDOWN:
+                    waiting = False
+                    game_over = False
+                    score = 0
+                    player = Dino()
+                    all_sprites = pygame.sprite.Group()
+                    platforms = pygame.sprite.Group()
+                    p1 = Platform(0, 320, WIDTH, 40)
+                    platforms.add(p1)
+                    all_sprites.add(player)
+                    all_sprites.add(p1)
+                    obstacles = []
 pygame.quit()
