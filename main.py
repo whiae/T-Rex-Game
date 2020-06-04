@@ -336,7 +336,8 @@ while not game_over:
             if event.key==K_DOWN:
                 player.duck()
         if event.type==pygame.KEYUP:
-            player.notduck()
+            if event.key==K_DOWN:
+                player.notduck()
             
         if event.type == USEREVENT + 2:
             r = random.randrange(0, 14)
