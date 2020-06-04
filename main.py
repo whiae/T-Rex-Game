@@ -6,8 +6,6 @@ import os
 import math
 import time
 
-clock = pygame.time.Clock()
-
 # define display surface
 WIDTH = 1000
 HEIGHT = 400
@@ -35,6 +33,8 @@ FPS = 120
 
 background = pygame.image.load(os.path.join(img_folder, "ground.png")).convert()
 x = 0
+
+dinoCurrentImage = 0
 
 font_name = pygame.font.match_font('Comic Sans MS')
 
@@ -71,13 +71,12 @@ PLAYER_GRAV = 0.4
 
 vec = pygame.math.Vector2
 
-
 # klasy
 class Dino(pygame.sprite.Sprite):
     # sprite for the Player
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(os.path.join(img_folder, "dino.png")).convert()  # here's the picture of a player
+        self.image = pygame.image.load(os.path.join(img_folder, "dino0.png")).convert()  # here's the picture of a player
         self.image.set_colorkey(GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
         self.rect = self.image.get_rect()
         self.rect.center = (250, 320)  # you can set here the position of the dinosaur on the screen
@@ -136,6 +135,17 @@ class Dino(pygame.sprite.Sprite):
         self.pos.y = int(round(self.pos.y, 0))
 
         self.rect.midbottom = self.pos
+
+        # CHANGING PLAYER IMAGE
+        if dinoCurrentImage == 0:
+            self.image = pygame.image.load(os.path.join(img_folder, "dino0.png")).convert()
+            self.image.set_colorkey(GREY)
+        elif dinoCurrentImage == 1:
+            self.image = pygame.image.load(os.path.join(img_folder, "dino1.png")).convert()
+            self.image.set_colorkey(GREY)
+        elif dinoCurrentImage == 2:
+            self.image = pygame.image.load(os.path.join(img_folder, "dino2.png")).convert()
+            self.image.set_colorkey(GREY)
 
 
 class Platform(pygame.sprite.Sprite):
@@ -496,6 +506,11 @@ while not game_over:
             draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
             draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
+
+    if dinoCurrentImage == 2:
+        dinoCurrentImage = 0
+    else:
+        dinoCurrentImage += 1
 
     # flip AFTER drawing the display
     pygame.display.flip()
