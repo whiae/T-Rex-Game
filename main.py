@@ -39,8 +39,8 @@ x = 0
 font_name = pygame.font.match_font('Comic Sans MS')
 
 # MUSIC
-music = pygame.mixer.Sound('snd/music.wav')
-music.set_volume(0.02)
+music = pygame.mixer.music.load('snd/music.wav')
+pygame.mixer.music.set_volume(0.15)
 jump_sound = pygame.mixer.Sound('snd/jump.wav')
 die_sound = pygame.mixer.Sound('snd/die.wav')
 checkPoint_sound = pygame.mixer.Sound('snd/checkPoint.wav')
@@ -306,13 +306,10 @@ obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
 
 game_over = False
+pygame.mixer.music.play(-1)
 
 while not game_over:
     score += 0.1
-
-    # infinite music
-    if pygame.mixer.get_init() != None:
-         music.play(-1)
 
     DS.fill((GREY))
     # keep loop running at the right speed
@@ -326,15 +323,14 @@ while not game_over:
         if (player.rect.x + 30) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
-                die_sound.play()
+                die_sound.play(0)
                 game_over = True
                 if score > high_score:
                     high_score = score
 
     if pygame.key.get_pressed()[pygame.K_SPACE]:
+        jump_sound.play(0)
         player.jump()
-        if pygame.mixer.get_init() != None:
-            jump_sound.play()
 
     if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
         player.duck()
@@ -512,7 +508,7 @@ while not game_over:
 
     while game_over:
         show_game_over_screen()
-        music.stop()
+        pygame.mixer.music.stop()
         waiting = True
         while waiting:
             for event in pygame.event.get():
@@ -524,6 +520,7 @@ while not game_over:
                     waiting = False
                     game_over = False
                     score = 0
+                    pygame.mixer.music.play(-1)
                     player = Dino()
                     all_sprites = pygame.sprite.Group()
                     platforms = pygame.sprite.Group()
