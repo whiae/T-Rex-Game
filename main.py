@@ -98,20 +98,12 @@ class Dino(pygame.sprite.Sprite):
         self.rect.y += 1
         collisions = pygame.sprite.spritecollide(player, platforms, False)
         self.rect.y -= 1
-        self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
-        self.image.set_colorkey(GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
-        self.rect = self.image.get_rect()
-        self.rect.center = (250, 330)  # you can set here the position of the dinosaur on the screen
-        self.pos = vec(250, 320)
 
     def notduck(self):
         # standup only if standing on a platform
         self.rect.y += 1
         collisions = pygame.sprite.spritecollide(player, platforms, False)
         self.rect.y -= 1
-        self.image = pygame.image.load(os.path.join(img_folder, "dino1.png")).convert()
-        self.image.set_colorkey(GREY)  # the background of the dino is light grey, so we should tell python to ignore this colour
-        self.rect = self.image.get_rect()
         self.rect.center = (250, 320)  # you can set here the position of the dinosaur on the screen
         self.pos = vec(250, 320)
 
@@ -146,6 +138,16 @@ class Dino(pygame.sprite.Sprite):
         elif dinoCurrentImage == 2:
             self.image = pygame.image.load(os.path.join(img_folder, "dino2.png")).convert()
             self.image.set_colorkey(GREY)
+        elif dinoCurrentImage == 3:
+            self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
+            self.image.set_colorkey(GREY)
+            self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
+            self.pos = vec(250, 320)
+        elif dinoCurrentImage == 4:
+            self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino2.png")).convert()
+            self.image.set_colorkey(GREY)
+            self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
+            self.pos = vec(250, 320)
 
 
 class Platform(pygame.sprite.Sprite):
@@ -310,6 +312,8 @@ obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
 
 game_over = False
+RUNNING = True
+DUCKING = False
 pygame.mixer.music.play(-1)
 
 while not game_over:
@@ -327,6 +331,7 @@ while not game_over:
         if (player.rect.x + 30) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
+                RUNNING = False
                 die_sound.play(0)
                 game_over = True
                 if score > high_score:
@@ -334,7 +339,6 @@ while not game_over:
 
     if pygame.key.get_pressed()[pygame.K_SPACE]:
         player.jump()
-        jump_sound.play(0)
 
     for event in pygame.event.get():
         # check for closing window
@@ -344,10 +348,24 @@ while not game_over:
             
         if event.type==pygame.KEYDOWN:
             if event.key==K_DOWN:
+                RUNNING = False
                 player.duck()
+                DUCKING = True
         if event.type==pygame.KEYUP:
             if event.key==K_DOWN:
+                DUCKING = False
                 player.notduck()
+                RUNNING = True
+        if event.type == pygame.KEYDOWN:
+            if event.key == K_SPACE:
+                jump_sound.play(0)
+                RUNNING = False
+                DUCKING = False
+        if event.type == pygame.KEYUP:
+            if event.key == K_SPACE:
+                DUCKING = False
+                RUNNING = True
+
             
         if event.type == USEREVENT + 2:
             r = random.randrange(0, 14)
@@ -507,10 +525,17 @@ while not game_over:
         else:
             draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
 
-    if dinoCurrentImage == 2:
-        dinoCurrentImage = 0
-    else:
-        dinoCurrentImage += 1
+    if RUNNING == True and DUCKING == False:
+        if dinoCurrentImage == 2 or dinoCurrentImage == 3 or dinoCurrentImage == 4:
+            dinoCurrentImage = 0
+        else:
+            dinoCurrentImage += 1
+
+    elif DUCKING == True and RUNNING == False:
+        if dinoCurrentImage == 4:
+            dinoCurrentImage = 3
+        else:
+            dinoCurrentImage += 1
 
     # flip AFTER drawing the display
     pygame.display.flip()
@@ -538,4 +563,5 @@ while not game_over:
                     all_sprites.add(player)
                     all_sprites.add(p1)
                     obstacles = []
+                    RUNNING = True
 pygame.quit()
