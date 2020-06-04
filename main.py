@@ -119,11 +119,6 @@ class Dino(pygame.sprite.Sprite):
     def update(self):
         # we let him move right and left when we press left and right keys
         self.acc = vec(0, PLAYER_GRAV)
-        keystate = pygame.key.get_pressed()
-        if keystate[pygame.K_LEFT]:
-            self.acc.x = -PLAYER_ACC
-        if keystate[pygame.K_RIGHT]:
-            self.acc.x = PLAYER_ACC
 
         # apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
