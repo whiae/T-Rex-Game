@@ -399,7 +399,6 @@ while not game_over:
         player.pos.y = ground_collisions[0].rect.top
         player.vel.y = 0
 
-    # pygame.display.update() #nie wiem czy ta linijka jest potrzebna, bo jak ją zostawiam to dinozaur miga; zostawię ją tu na wszelki wypadek, ale jako komentarz
     all_sprites.draw(DS)
 
     if high_score < 10:
