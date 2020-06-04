@@ -568,4 +568,5 @@ while not game_over:
                     all_sprites.add(p1)
                     obstacles = []
                     RUNNING = True
+                    dinoCurrentImage = 0
 pygame.quit()
