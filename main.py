@@ -315,7 +315,6 @@ while not game_over:
         if (player.rect.x + 30) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
-
                 die_sound.play()
                 music.stop()
                 game_over = True
@@ -467,17 +466,16 @@ while not game_over:
                     waiting = False
                     pygame.quit()
                     sys.exit()
-            if (event.type == KEYDOWN and event.key == pygame.K_RETURN) or event.type == pygame.MOUSEBUTTONDOWN:
-                waiting = False
-                game_over = False
-                score = 0
-                player = Dino()
-                all_sprites = pygame.sprite.Group()
-                platforms = pygame.sprite.Group()
-                p1 = Platform(0, 320, WIDTH, 40)
-                platforms.add(p1)
-                all_sprites.add(player)
-                all_sprites.add(p1)
-                obstacles = []
-
+                if (event.type == KEYDOWN and event.key == pygame.K_RETURN) or event.type == pygame.MOUSEBUTTONDOWN:
+                    waiting = False
+                    game_over = False
+                    score = 0
+                    player = Dino()
+                    all_sprites = pygame.sprite.Group()
+                    platforms = pygame.sprite.Group()
+                    p1 = Platform(0, 320, WIDTH, 40)
+                    platforms.add(p1)
+                    all_sprites.add(player)
+                    all_sprites.add(p1)
+                    obstacles = []
 pygame.quit()
