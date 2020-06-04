@@ -381,13 +381,13 @@ while not game_over:
     DS.blit(background, (rel_x - background.get_rect().width, 300))
     if rel_x < WIDTH:
         DS.blit(background, (rel_x, 300))
-    x -= 2
+    x -= 3
 
     # Loops through all obstacles
     for obstacle in obstacles:
         obstacle.draw(DS)
     for obstacle in obstacles:
-        obstacle.x -= 2
+        obstacle.x -= 3
         if obstacle.x < obstacle.width * -2:
             obstacles.pop(obstacles.index(obstacle))
 
