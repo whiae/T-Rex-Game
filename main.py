@@ -164,7 +164,7 @@ class cactus_1(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "big_cactus1.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 5, self.y - 1, 31, 80)
+        self.hitbox = (self.x - 4, self.y +2, 31, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -193,7 +193,7 @@ class cactus_3(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "big_cactus3.png")).convert()
-        self.hitbox = (self.x - 5, self.y - 6, 31, 80)
+        self.hitbox = (self.x - 5, self.y - 3, 20, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -208,7 +208,7 @@ class cactus_small_1(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "small_cactus1.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 8, self.y - 6, 15, 70)
+        self.hitbox = (self.x - 6, self.y + 8, 15, 70)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -416,8 +416,16 @@ while not game_over:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
+        elif score > 100 and score < 130:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+        elif score < 500:
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 500 and score < 530:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 1000 and score < 1030:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -427,8 +435,16 @@ while not game_over:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
+        elif score > 100 and score < 130:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+        elif score < 500:
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 500 and score < 530:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 1000 and score < 1030:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -438,8 +454,16 @@ while not game_over:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
+        elif score > 100 and score < 130:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+        elif score < 500:
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 500 and score < 530:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 1000 and score < 1030:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -449,8 +473,16 @@ while not game_over:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
+        elif score > 100 and score < 130:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+        elif score < 500:
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 500 and score < 530:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 1000 and score < 1030:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -460,8 +492,16 @@ while not game_over:
             draw_text(DS, "HI " + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
             draw_text(DS, "HI " + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
+        elif score > 100 and score < 130:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+        elif score < 500:
+            draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 500 and score < 530:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
+        elif score > 1000 and score < 1030:
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
