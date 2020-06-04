@@ -331,18 +331,18 @@ while not game_over:
         player.jump()
         jump_sound.play(0)
 
-    if pygame.key.get_pressed()[pygame.K_DOWN] and not pygame.key.get_pressed()[pygame.K_SPACE]:
-        player.duck()
-
-    if pygame.key.get_pressed()[pygame.K_UP] and not pygame.key.get_pressed()[pygame.K_SPACE]:
-        player.notduck()
-
     for event in pygame.event.get():
         # check for closing window
         if event.type == pygame.QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             pygame.quit()
             sys.exit()
-
+            
+        if event.type==pygame.KEYDOWN:
+            if event.key==K_DOWN:
+                player.duck()
+        if event.type==pygame.KEYUP:
+            player.notduck()
+            
         if event.type == USEREVENT + 2:
             r = random.randrange(0, 14)
 
