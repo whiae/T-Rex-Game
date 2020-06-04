@@ -148,6 +148,9 @@ class Dino(pygame.sprite.Sprite):
             self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
+        elif dinoCurrentImage == 5:
+            self.image = pygame.image.load(os.path.join(img_folder, "hedied.png")).convert()
+            self.image.set_colorkey(GREY)
 
 
 class Platform(pygame.sprite.Sprite):
@@ -332,6 +335,7 @@ while not game_over:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
                 RUNNING = False
+                dinoCurrentImage = 5
                 die_sound.play(0)
                 game_over = True
                 if score > high_score:
@@ -530,7 +534,7 @@ while not game_over:
             dinoCurrentImage = 0
         else:
             dinoCurrentImage += 1
-
+            
     elif DUCKING == True and RUNNING == False:
         if dinoCurrentImage == 4:
             dinoCurrentImage = 3
