@@ -228,7 +228,7 @@ class cactus_small_3(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "small_cactus3.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 10, self.y - 6, 15, 60)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -314,8 +314,6 @@ while not game_over:
         # Kolizja!!!
         if (player.rect.x + 30) > obstacle.hitbox[0] and (player.rect.x) < obstacle.hitbox[0] + obstacle.hitbox[2]:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
-
-                print("GAME OVER")
 
                 die_sound.play()
                 music.stop()
@@ -468,17 +466,16 @@ while not game_over:
                     waiting = False
                     pygame.quit()
                     sys.exit()
-            if (event.type == KEYDOWN and event.key == K_SPACE) or event.type == pygame.MOUSEBUTTONDOWN:
-                waiting = False
-                game_over = False
-                score = 0
-                player = Dino()
-                all_sprites = pygame.sprite.Group()
-                platforms = pygame.sprite.Group()
-                p1 = Platform(0, 320, WIDTH, 40)
-                platforms.add(p1)
-                all_sprites.add(player)
-                all_sprites.add(p1)
-                obstacles = []
-
+                if (event.type == KEYDOWN and event.key == pygame.K_RETURN) or event.type == pygame.MOUSEBUTTONDOWN:
+                    waiting = False
+                    game_over = False
+                    score = 0
+                    player = Dino()
+                    all_sprites = pygame.sprite.Group()
+                    platforms = pygame.sprite.Group()
+                    p1 = Platform(0, 320, WIDTH, 40)
+                    platforms.add(p1)
+                    all_sprites.add(player)
+                    all_sprites.add(p1)
+                    obstacles = []
 pygame.quit()
