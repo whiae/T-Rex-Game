@@ -298,7 +298,7 @@ pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
 game_over = False
 
 while not game_over:
-    score += 1
+    score += 0.1
 
     # infinite music
     music.play(-1)
@@ -400,59 +400,59 @@ while not game_over:
 
     if high_score < 10:
         if score < 10:
-            draw_text(DS, "HI 0000" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 0000" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 0000" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 0000" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 0000" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0000" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     elif high_score < 100:
         if score < 10:
-            draw_text(DS, "HI 000" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 000" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 000" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 000" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 000" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 000" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     elif high_score < 1000:
         if score < 10:
-            draw_text(DS, "HI 00" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 00" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 00" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 00" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 00" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 00" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     elif high_score < 10000:
         if score < 10:
-            draw_text(DS, "HI 0" + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI 0" + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI 0" + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI 0" + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI 0" + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI 0" + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
     else:
         if score < 10:
-            draw_text(DS, "HI " + str(high_score) + "  0000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  0000" + str(round(score)), 20, 800, 10)
         elif score < 100:
-            draw_text(DS, "HI " + str(high_score) + "  000" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score < 1000:
-            draw_text(DS, "HI " + str(high_score) + "  00" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score < 10000:
-            draw_text(DS, "HI " + str(high_score) + "  0" + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
-            draw_text(DS, "HI " + str(high_score) + "  " + str(score), 20, 800, 10)
+            draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
 
     # flip AFTER drawing the display
     pygame.display.flip()
