@@ -235,8 +235,45 @@ class cactus_small_3(object):
         self.hitbox = (self.x - 3, self.y +10, 12, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
+class cactus_grup_1(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
 
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "four_cacti1.png")).convert()
+        self.img.set_colorkey(GREY)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+class cactus_grup_2(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
 
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "four_cacti2.png")).convert()
+        self.img.set_colorkey(GREY)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+class cactus_grup_3(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "four_cacti3.png")).convert()
+        self.img.set_colorkey(GREY)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
 class ptero(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -338,7 +375,7 @@ while not game_over:
             sys.exit()
 
         if event.type == USEREVENT + 2:
-            r = random.randrange(0, 9)
+            r = random.randrange(0, 12)
 
             if r == 0:
                 obstacles.append(cactus_1(1000, 270, 70, 64))
@@ -353,13 +390,19 @@ while not game_over:
                 obstacles.append(cactus_small_2(1000, 270, 70, 64))
             elif r == 5:
                 obstacles.append(cactus_small_3(1000, 270, 70, 64))
+            elif r == 6:
+                obstacles.append(cactus_grup_1(1000, 270, 70, 64))
+            elif r == 7:
+                obstacles.append(cactus_grup_2(1000, 270, 70, 64))
+            elif r == 8:
+                obstacles.append(cactus_grup_3(1000, 270, 70, 64))
 
             # PTEROS ON DIFFERENT HEIGHT
-            elif r == 6:
+            elif r == 9:
                 obstacles.append(ptero(1000, 230, 70, 64))
-            elif r == 7:
+            elif r == 10:
                 obstacles.append(ptero(1000, 240, 70, 64))
-            elif r == 8:
+            elif r == 11:
                 obstacles.append(ptero(1000, 270, 70, 64))
 
 
@@ -533,5 +576,6 @@ while not game_over:
                     all_sprites.add(p1)
                     obstacles = []
 pygame.quit()
+
 
 
