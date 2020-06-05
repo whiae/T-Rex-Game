@@ -35,20 +35,23 @@ background = pygame.image.load(os.path.join(img_folder, "ground.png")).convert()
 x = 0
 
 dinoCurrentImage = 0
+pteroCurrentImage = 0
 
 font_name = pygame.font.match_font('Comic Sans MS')
 
 # MUSIC
 music = pygame.mixer.music.load('snd/music.mp3')
-pygame.mixer.music.set_volume(0.15)
+pygame.mixer.music.set_volume(0.1)
 jump_sound = pygame.mixer.Sound('snd/jump.wav')
 die_sound = pygame.mixer.Sound('snd/die.wav')
+swietnarobota_sound = pygame.mixer.Sound('snd/swietnarobota.wav')
+swietnarobota_sound.set_volume(0.3)
 
 
 def draw_text(surf, text, size, x, y):
     # x i y to lokalizacja tekstu na ekranie
     font = pygame.font.Font(font_name, size)
-    text_surface = font.render(text, False, GREEN)
+    text_surface = font.render(text, False, (160,82,45))
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
@@ -60,6 +63,16 @@ def show_game_over_screen():
     DS.blit(retry_img, (485, HEIGHT / 2))
     pygame.display.flip()
 
+def show_start_screen():
+    DS.fill((GREY))
+    credits_img = pygame.image.load(os.path.join(img_folder, "credits.png")).convert()
+    init_img = pygame.image.load(os.path.join(img_folder, "init_dino.png")).convert()
+    title_img = pygame.image.load(os.path.join(img_folder, "title.png")).convert()
+    DS.blit(credits_img, (300, 70))
+    DS.blit(title_img, (400, 100))
+    DS.blit(init_img, (440, 160))
+    draw_text(DS, "press ENTER or LMB to start", 17, WIDTH / 2, HEIGHT / 1.5)
+    pygame.display.flip()
 
 score = 0
 high_score = 0
@@ -129,28 +142,28 @@ class Dino(pygame.sprite.Sprite):
         self.rect.midbottom = self.pos
 
         # CHANGING PLAYER IMAGE
-        if dinoCurrentImage == 0:
+        if dinoCurrentImage < 10:
             self.image = pygame.image.load(os.path.join(img_folder, "dino0.png")).convert()
-            self.image.set_colorkey(GREY)
-        elif dinoCurrentImage == 1:
+        elif dinoCurrentImage <= 20:
             self.image = pygame.image.load(os.path.join(img_folder, "dino1.png")).convert()
-            self.image.set_colorkey(GREY)
-        elif dinoCurrentImage == 2:
+        elif dinoCurrentImage <= 30:
             self.image = pygame.image.load(os.path.join(img_folder, "dino2.png")).convert()
-            self.image.set_colorkey(GREY)
-        elif dinoCurrentImage == 3:
+        elif dinoCurrentImage <= 40:
+            self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino0.png")).convert()
+            self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
+            self.pos = vec(250, 320)
+        elif dinoCurrentImage <= 50:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
-            self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
-        elif dinoCurrentImage == 4:
+        elif dinoCurrentImage <= 60:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino2.png")).convert()
-            self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
-        elif dinoCurrentImage == 5:
+        elif dinoCurrentImage == 61:
             self.image = pygame.image.load(os.path.join(img_folder, "hedied.png")).convert()
-            self.image.set_colorkey(GREY)
+
+        self.image.set_colorkey(GREY)
 
 
 class Platform(pygame.sprite.Sprite):
@@ -202,6 +215,7 @@ class cactus_3(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "big_cactus3.png")).convert()
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 5, self.y - 3, 20, 80)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -263,9 +277,10 @@ class cactus_grup_1(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "four_cacti1.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        self.hitbox = (self.x - 3, self.y - 1, 85, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
+
 class cactus_grup_2(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -276,9 +291,10 @@ class cactus_grup_2(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "four_cacti2.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        self.hitbox = (self.x - 3, self.y +10, 72, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
+
 class cactus_grup_3(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -289,7 +305,7 @@ class cactus_grup_3(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "four_cacti3.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        self.hitbox = (self.x - 3, self.y +10, 72, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
@@ -301,7 +317,14 @@ class ptero(object):
         self.height = height
 
     def draw(self, DS):
-        self.img = pygame.image.load(os.path.join(img_folder, "ptero1.png")).convert()
+        self.x -= 1.5
+        # CHANGING PTERO IMAGE
+        if pteroCurrentImage < 20:
+            self.img = pygame.image.load(os.path.join(img_folder, "ptero1.png")).convert()
+        elif pteroCurrentImage <= 40:
+            self.img = pygame.image.load(os.path.join(img_folder, "ptero2.png")).convert()
+
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 5, self.y - 3, 35, 30)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -334,6 +357,18 @@ class cloud1(object):
         self.hitbox = (0, 0, 0, 0)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
+class jesiotr(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "jesiotr.png")).convert()
+        self.hitbox = (0, 0, 0, 0)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
 
 
 def redrawWindow():
@@ -356,12 +391,32 @@ obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
 clouds = []
 game_over = False
+start_screen = True
 RUNNING = True
 DUCKING = False
+
+while start_screen:
+    show_start_screen()
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                waiting = False
+                pygame.quit()
+                sys.exit()
+            if (event.type == KEYDOWN and event.key == pygame.K_RETURN) or event.type == pygame.MOUSEBUTTONDOWN:
+                waiting = False
+                game_over = False
+                start_screen = False
+
 pygame.mixer.music.play(-1)
 
-while not game_over:
+while not game_over and not start_screen:
     score += 0.1
+
+    #SWIETNA ROBOTA SOUND
+    if (score >= 100 and score < 100.1) or (score >= 500 and score < 500.1) or (score >= 1000 and score < 1000.1):
+        swietnarobota_sound.play(0)
 
     DS.fill((GREY))
     # keep loop running at the right speed
@@ -376,7 +431,7 @@ while not game_over:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
                 RUNNING = False
-                dinoCurrentImage = 5
+                dinoCurrentImage = 61
                 die_sound.play(0)
                 game_over = True
                 if score > high_score:
@@ -446,7 +501,7 @@ while not game_over:
         pygame.time.set_timer(USEREVENT + 2, random.randint(500, 1500))
 
         if event.type == USEREVENT + 3:
-            random_cloud = random.randrange(0, 5)
+            random_cloud = random.randrange(0, 8)
             # CLOUDS
             if random_cloud == 1:
                 clouds.append(cloud(1000, 210, 70, 64))
@@ -456,6 +511,12 @@ while not game_over:
                 clouds.append(cloud1(1000, 180, 70, 64))
             elif random_cloud == 4:
                 clouds.append(cloud1(1000, 160, 70, 64))
+            elif random_cloud == 5:
+                clouds.append(jesiotr(1000, 210, 70, 64))
+            elif random_cloud == 6:
+                clouds.append(jesiotr(1000, 210, 70, 64))
+            elif random_cloud == 7:
+                clouds.append(jesiotr(1000, 210, 70, 64))
         pygame.time.set_timer(USEREVENT + 3, random.randint(500, 2000))
 
     # scrolling background
@@ -495,15 +556,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -514,15 +575,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -533,15 +594,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -552,15 +613,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -571,29 +632,34 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI " + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
             draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
 
+    if pteroCurrentImage == 40:
+        pteroCurrentImage = 0
+    else:
+        pteroCurrentImage += 1
+
     if RUNNING == True and DUCKING == False:
-        if dinoCurrentImage == 2 or dinoCurrentImage == 3 or dinoCurrentImage == 4:
+        if dinoCurrentImage == 30 or dinoCurrentImage == 40 or dinoCurrentImage == 60:
             dinoCurrentImage = 0
         else:
             dinoCurrentImage += 1
 
     elif DUCKING == True and RUNNING == False:
-        if dinoCurrentImage == 4:
-            dinoCurrentImage = 3
+        if dinoCurrentImage == 60:
+            dinoCurrentImage = 40
         else:
             dinoCurrentImage += 1
 
@@ -625,4 +691,6 @@ while not game_over:
                     obstacles = []
                     RUNNING = True
                     dinoCurrentImage = 0
+                    pteroCurrentImage = 0
 pygame.quit()
+
