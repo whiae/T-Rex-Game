@@ -252,6 +252,47 @@ class cactus_small_3(object):
         DS.blit(self.img, (self.x, self.y))
 
 
+
+class cactus_grup_1(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "four_cacti1.png")).convert()
+        self.img.set_colorkey(GREY)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+class cactus_grup_2(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "four_cacti2.png")).convert()
+        self.img.set_colorkey(GREY)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+class cactus_grup_3(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "four_cacti3.png")).convert()
+        self.img.set_colorkey(GREY)
+        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+
 class ptero(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -313,7 +354,7 @@ all_sprites.add(p1)
 # Game loop
 obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
-
+clouds = []
 game_over = False
 RUNNING = True
 DUCKING = False
@@ -349,7 +390,7 @@ while not game_over:
         if event.type == pygame.QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             pygame.quit()
             sys.exit()
-            
+
         if event.type==pygame.KEYDOWN:
             if event.key==K_DOWN:
                 RUNNING = False
@@ -370,9 +411,8 @@ while not game_over:
                 DUCKING = False
                 RUNNING = True
 
-            
         if event.type == USEREVENT + 2:
-            r = random.randrange(0, 14)
+            r = random.randrange(0, 12)
 
             if r == 0:
                 obstacles.append(cactus_1(1000, 270, 70, 64))
@@ -387,26 +427,36 @@ while not game_over:
                 obstacles.append(cactus_small_2(1000, 270, 70, 64))
             elif r == 5:
                 obstacles.append(cactus_small_3(1000, 270, 70, 64))
+            elif r == 6:
+                obstacles.append(cactus_grup_1(1000, 270, 70, 64))
+            elif r == 7:
+                obstacles.append(cactus_grup_2(1000, 270, 70, 64))
+            elif r == 8:
+                obstacles.append(cactus_grup_3(1000, 270, 70, 64))
 
             # PTEROS ON DIFFERENT HEIGHT
-            elif r == 6:
+            elif r == 9:
                 obstacles.append(ptero(1000, 230, 70, 64))
-            elif r == 7:
+            elif r == 10:
                 obstacles.append(ptero(1000, 240, 70, 64))
-            elif r == 8:
+            elif r == 11:
                 obstacles.append(ptero(1000, 270, 70, 64))
 
-            # CLOUDS
-            elif r == 9:
-                obstacles.append(cloud(1000, 210, 70, 64))
-            elif r == 10:
-                obstacles.append(cloud(1000, 180, 70, 64))
-            elif r == 11:
-                obstacles.append(cloud1(1000, 180, 70, 64))
-            elif r == 12:
-                obstacles.append(cloud1(1000, 160, 70, 64))
 
-        pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))
+        pygame.time.set_timer(USEREVENT + 2, random.randint(500, 1500))
+
+        if event.type == USEREVENT + 3:
+            random_cloud = random.randrange(0, 5)
+            # CLOUDS
+            if random_cloud == 1:
+                clouds.append(cloud(1000, 210, 70, 64))
+            elif random_cloud == 2:
+                clouds.append(cloud(1000, 180, 70, 64))
+            elif random_cloud == 3:
+                clouds.append(cloud1(1000, 180, 70, 64))
+            elif random_cloud == 4:
+                clouds.append(cloud1(1000, 160, 70, 64))
+        pygame.time.set_timer(USEREVENT + 3, random.randint(500, 2000))
 
     # scrolling background
     rel_x = x % background.get_rect().width
@@ -422,7 +472,13 @@ while not game_over:
         obstacle.x -= 3
         if obstacle.x < obstacle.width * -2:
             obstacles.pop(obstacles.index(obstacle))
-
+    #loop for CLOUDS
+    for c in clouds:
+        c.draw(DS)
+    for c in clouds:
+        c.x -= 2
+        if c.x < c.width * -2:
+            clouds.pop(clouds.index(c))
     # Update
     all_sprites.update()
 
@@ -534,7 +590,7 @@ while not game_over:
             dinoCurrentImage = 0
         else:
             dinoCurrentImage += 1
-            
+
     elif DUCKING == True and RUNNING == False:
         if dinoCurrentImage == 4:
             dinoCurrentImage = 3
