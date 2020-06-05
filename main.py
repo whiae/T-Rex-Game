@@ -280,7 +280,7 @@ class cactus_grup_1(object):
         self.hitbox = (self.x - 3, self.y - 1, 85, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
-        
+
 class cactus_grup_2(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -294,7 +294,7 @@ class cactus_grup_2(object):
         self.hitbox = (self.x - 3, self.y +10, 72, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
-        
+
 class cactus_grup_3(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -354,6 +354,18 @@ class cloud1(object):
 
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "cloud1.png")).convert()
+        self.hitbox = (0, 0, 0, 0)
+        pygame.draw.rect(DS, GREY, self.hitbox, 2)
+        DS.blit(self.img, (self.x, self.y))
+class jesiotr(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def draw(self, DS):
+        self.img = pygame.image.load(os.path.join(img_folder, "jesiotr.png")).convert()
         self.hitbox = (0, 0, 0, 0)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -489,7 +501,7 @@ while not game_over and not start_screen:
         pygame.time.set_timer(USEREVENT + 2, random.randint(500, 1500))
 
         if event.type == USEREVENT + 3:
-            random_cloud = random.randrange(0, 5)
+            random_cloud = random.randrange(0, 8)
             # CLOUDS
             if random_cloud == 1:
                 clouds.append(cloud(1000, 210, 70, 64))
@@ -499,6 +511,12 @@ while not game_over and not start_screen:
                 clouds.append(cloud1(1000, 180, 70, 64))
             elif random_cloud == 4:
                 clouds.append(cloud1(1000, 160, 70, 64))
+            elif random_cloud == 5:
+                clouds.append(jesiotr(1000, 210, 70, 64))
+            elif random_cloud == 6:
+                clouds.append(jesiotr(1000, 210, 70, 64))
+            elif random_cloud == 7:
+                clouds.append(jesiotr(1000, 210, 70, 64))
         pygame.time.set_timer(USEREVENT + 3, random.randint(500, 2000))
 
     # scrolling background
@@ -675,3 +693,6 @@ while not game_over and not start_screen:
                     dinoCurrentImage = 0
                     pteroCurrentImage = 0
 pygame.quit()
+
+
+
