@@ -15,7 +15,7 @@ AREA = WIDTH * HEIGHT
 
 # define colors
 WHITE = (255, 255, 255)
-GREY = (247, 247, 247)
+GREY = (247, 247, 247, 0)
 BLACK = (0, 0, 0)
 GREEN = (0, 139, 69)
 PINK = (255, 62, 150)
