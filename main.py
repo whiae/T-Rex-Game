@@ -263,7 +263,7 @@ class cactus_grup_1(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "four_cacti1.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        self.hitbox = (self.x - 3, self.y - 1, 85, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 class cactus_grup_2(object):
@@ -276,7 +276,7 @@ class cactus_grup_2(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "four_cacti2.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        self.hitbox = (self.x - 3, self.y +10, 72, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 class cactus_grup_3(object):
@@ -289,7 +289,7 @@ class cactus_grup_3(object):
     def draw(self, DS):
         self.img = pygame.image.load(os.path.join(img_folder, "four_cacti3.png")).convert()
         self.img.set_colorkey(GREY)
-        self.hitbox = (self.x - 3, self.y +10, 12, 35)
+        self.hitbox = (self.x - 3, self.y +10, 72, 35)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
 
