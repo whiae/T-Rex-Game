@@ -357,6 +357,8 @@ class cloud1(object):
         self.hitbox = (0, 0, 0, 0)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
+
+
 class jesiotr(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -365,7 +367,16 @@ class jesiotr(object):
         self.height = height
 
     def draw(self, DS):
-        self.img = pygame.image.load(os.path.join(img_folder, "jesiotr.png")).convert()
+        self.x -= 1.25
+        # CHANGING PTERO IMAGE
+        if pteroCurrentImage < 13:
+            self.img = pygame.image.load(os.path.join(img_folder, "jesiotr0.png")).convert()
+        elif pteroCurrentImage <= 27:
+            self.img = pygame.image.load(os.path.join(img_folder, "jesiotr1.png")).convert()
+        elif pteroCurrentImage <= 40:
+            self.img = pygame.image.load(os.path.join(img_folder, "jesiotr2.png")).convert()
+
+        self.img.set_colorkey(GREY)
         self.hitbox = (0, 0, 0, 0)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
