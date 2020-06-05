@@ -41,9 +41,11 @@ font_name = pygame.font.match_font('Comic Sans MS')
 
 # MUSIC
 music = pygame.mixer.music.load('snd/music.mp3')
-pygame.mixer.music.set_volume(0.15)
+pygame.mixer.music.set_volume(0.1)
 jump_sound = pygame.mixer.Sound('snd/jump.wav')
 die_sound = pygame.mixer.Sound('snd/die.wav')
+swietnarobota_sound = pygame.mixer.Sound('snd/swietnarobota.wav')
+swietnarobota_sound.set_volume(0.3)
 
 
 def draw_text(surf, text, size, x, y):
@@ -69,7 +71,7 @@ def show_start_screen():
     DS.blit(credits_img, (300, 70))
     DS.blit(title_img, (400, 100))
     DS.blit(init_img, (440, 160))
-    draw_text(DS, "press ENTER or LMB to start", 20, WIDTH / 2, HEIGHT / 1.5)
+    draw_text(DS, "press ENTER or LMB to start", 17, WIDTH / 2, HEIGHT / 1.5)
     pygame.display.flip()
 
 score = 0
@@ -399,6 +401,10 @@ pygame.mixer.music.play(-1)
 
 while not game_over and not start_screen:
     score += 0.1
+
+    #SWIETNA ROBOTA SOUND
+    if (score >= 100 and score < 100.1) or (score >= 500 and score < 500.1) or (score >= 1000 and score < 1000.1):
+        swietnarobota_sound.play(0)
 
     DS.fill((GREY))
     # keep loop running at the right speed
