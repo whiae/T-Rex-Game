@@ -35,6 +35,7 @@ background = pygame.image.load(os.path.join(img_folder, "ground.png")).convert()
 x = 0
 
 dinoCurrentImage = 0
+pteroCurrentImage = 0
 
 font_name = pygame.font.match_font('Comic Sans MS')
 
@@ -265,7 +266,14 @@ class ptero(object):
         self.height = height
 
     def draw(self, DS):
-        self.img = pygame.image.load(os.path.join(img_folder, "ptero1.png")).convert()
+        self.x -= 1.5
+        # CHANGING PTERO IMAGE
+        if pteroCurrentImage < 20:
+            self.img = pygame.image.load(os.path.join(img_folder, "ptero1.png")).convert()
+        elif pteroCurrentImage <= 40:
+            self.img = pygame.image.load(os.path.join(img_folder, "ptero2.png")).convert()
+
+        self.img.set_colorkey(GREY)
         self.hitbox = (self.x - 5, self.y - 3, 35, 30)
         pygame.draw.rect(DS, GREY, self.hitbox, 2)
         DS.blit(self.img, (self.x, self.y))
@@ -533,6 +541,11 @@ while not game_over:
             draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
             draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
+
+    if pteroCurrentImage == 40:
+        pteroCurrentImage = 0
+    else:
+        pteroCurrentImage += 1
 
     if RUNNING == True and DUCKING == False:
         if dinoCurrentImage == 30 or dinoCurrentImage == 40 or dinoCurrentImage == 60:
