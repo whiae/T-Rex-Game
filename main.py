@@ -129,26 +129,31 @@ class Dino(pygame.sprite.Sprite):
         self.rect.midbottom = self.pos
 
         # CHANGING PLAYER IMAGE
-        if dinoCurrentImage == 0:
+        if dinoCurrentImage < 10:
             self.image = pygame.image.load(os.path.join(img_folder, "dino0.png")).convert()
             self.image.set_colorkey(GREY)
-        elif dinoCurrentImage == 1:
+        elif dinoCurrentImage <= 20:
             self.image = pygame.image.load(os.path.join(img_folder, "dino1.png")).convert()
             self.image.set_colorkey(GREY)
-        elif dinoCurrentImage == 2:
+        elif dinoCurrentImage <= 30:
             self.image = pygame.image.load(os.path.join(img_folder, "dino2.png")).convert()
             self.image.set_colorkey(GREY)
-        elif dinoCurrentImage == 3:
+        elif dinoCurrentImage <= 40:
+            self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino0.png")).convert()
+            self.image.set_colorkey(GREY)
+            self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
+            self.pos = vec(250, 320)
+        elif dinoCurrentImage <= 50:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
             self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
-        elif dinoCurrentImage == 4:
+        elif dinoCurrentImage <= 60:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino2.png")).convert()
             self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
-        elif dinoCurrentImage == 5:
+        elif dinoCurrentImage == 61:
             self.image = pygame.image.load(os.path.join(img_folder, "hedied.png")).convert()
             self.image.set_colorkey(GREY)
 
@@ -335,7 +340,7 @@ while not game_over:
             if (player.rect.y + 30) > obstacle.hitbox[1] and (player.rect.y) < obstacle.hitbox[1] + obstacle.hitbox[3]:
 
                 RUNNING = False
-                dinoCurrentImage = 5
+                dinoCurrentImage = 61
                 die_sound.play(0)
                 game_over = True
                 if score > high_score:
@@ -530,16 +535,18 @@ while not game_over:
             draw_text(DS, "HI " + str(round(high_score)) + "  " + str(round(score)), 20, 800, 10)
 
     if RUNNING == True and DUCKING == False:
-        if dinoCurrentImage == 2 or dinoCurrentImage == 3 or dinoCurrentImage == 4:
+        if dinoCurrentImage == 30 or dinoCurrentImage == 40 or dinoCurrentImage == 60:
             dinoCurrentImage = 0
         else:
             dinoCurrentImage += 1
+            print(dinoCurrentImage)
             
     elif DUCKING == True and RUNNING == False:
-        if dinoCurrentImage == 4:
-            dinoCurrentImage = 3
+        if dinoCurrentImage == 60:
+            dinoCurrentImage = 40
         else:
             dinoCurrentImage += 1
+            print(dinoCurrentImage)
 
     # flip AFTER drawing the display
     pygame.display.flip()
