@@ -694,3 +694,5 @@ while not game_over and not start_screen:
                     pteroCurrentImage = 0
 pygame.quit()
 
+
+
