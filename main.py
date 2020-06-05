@@ -63,10 +63,14 @@ def show_game_over_screen():
 
 def show_start_screen():
     DS.fill((GREY))
+    credits_img = pygame.image.load(os.path.join(img_folder, "credits.png")).convert()
+    init_img = pygame.image.load(os.path.join(img_folder, "init_dino.png")).convert()
+    hi_img = pygame.image.load(os.path.join(img_folder, "hi.png")).convert()
     draw_text(DS, "F A J N A   G R A", 20, WIDTH / 2, HEIGHT / 3.5)
-    retry_img = pygame.image.load(os.path.join(img_folder, "retry.png")).convert()
-    draw_text(DS, "naciśnij ENTER lub LEWY PRZYCISK MYSZKI aby rozpocząć grę", 20, WIDTH / 2, HEIGHT / 1.5)
-    DS.blit(retry_img, (485, HEIGHT / 2))
+    draw_text(DS, "press ENTER or LMB to start", 20, WIDTH / 2, HEIGHT / 1.5)
+    DS.blit(credits_img, (300, 70))
+    DS.blit(init_img, (475, 175))
+    DS.blit(hi_img, (525, 170))
     pygame.display.flip()
 
 score = 0
@@ -575,14 +579,12 @@ while not game_over and not start_screen:
             dinoCurrentImage = 0
         else:
             dinoCurrentImage += 1
-            print(dinoCurrentImage)
             
     elif DUCKING == True and RUNNING == False:
         if dinoCurrentImage == 60:
             dinoCurrentImage = 40
         else:
             dinoCurrentImage += 1
-            print(dinoCurrentImage)
 
     # flip AFTER drawing the display
     pygame.display.flip()
