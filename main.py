@@ -61,6 +61,13 @@ def show_game_over_screen():
     DS.blit(retry_img, (485, HEIGHT / 2))
     pygame.display.flip()
 
+def show_start_screen():
+    DS.fill((GREY))
+    draw_text(DS, "F A J N A   G R A", 20, WIDTH / 2, HEIGHT / 3.5)
+    retry_img = pygame.image.load(os.path.join(img_folder, "retry.png")).convert()
+    draw_text(DS, "naciśnij ENTER lub LEWY PRZYCISK MYSZKI aby rozpocząć grę", 20, WIDTH / 2, HEIGHT / 1.5)
+    DS.blit(retry_img, (485, HEIGHT / 2))
+    pygame.display.flip()
 
 score = 0
 high_score = 0
@@ -328,11 +335,27 @@ obstacles = []
 pygame.time.set_timer(USEREVENT + 2, random.randint(1000, 2000))  # game timer
 
 game_over = False
+start_screen = True
 RUNNING = True
 DUCKING = False
+
+while start_screen:
+    show_start_screen()
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                waiting = False
+                pygame.quit()
+                sys.exit()
+            if (event.type == KEYDOWN and event.key == pygame.K_RETURN) or event.type == pygame.MOUSEBUTTONDOWN:
+                waiting = False
+                game_over = False
+                start_screen = False
+
 pygame.mixer.music.play(-1)
 
-while not game_over:
+while not game_over and not start_screen:
     score += 0.1
 
     DS.fill((GREY))
@@ -589,4 +612,5 @@ while not game_over:
                     obstacles = []
                     RUNNING = True
                     dinoCurrentImage = 0
+                    pteroCurrentImage = 0
 pygame.quit()
