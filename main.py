@@ -48,7 +48,7 @@ die_sound = pygame.mixer.Sound('snd/die.wav')
 def draw_text(surf, text, size, x, y):
     # x i y to lokalizacja tekstu na ekranie
     font = pygame.font.Font(font_name, size)
-    text_surface = font.render(text, False, GREEN)
+    text_surface = font.render(text, False, (160,82,45))
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
@@ -495,15 +495,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 0000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -514,15 +514,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 000" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -533,15 +533,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 00" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -552,15 +552,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI 0" + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
@@ -571,15 +571,15 @@ while not game_over:
         elif score < 100:
             draw_text(DS, "HI " + str(round(high_score)) + "  000" + str(round(score)), 20, 800, 10)
         elif score > 100 and score < 130:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 500:
             draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 500 and score < 530:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 1000:
             draw_text(DS, "HI " + str(round(high_score)) + "  00" + str(round(score)), 20, 800, 10)
         elif score > 1000 and score < 1030:
-            draw_text(DS, "ŚWIETNA  ROBOTA!!", 35, 800, 10)
+            draw_text(DS, "ŚWIETNA  ROBOTA!!", 30, 800, 10)
         elif score < 10000:
             draw_text(DS, "HI " + str(round(high_score)) + "  0" + str(round(score)), 20, 800, 10)
         else:
