@@ -65,12 +65,11 @@ def show_start_screen():
     DS.fill((GREY))
     credits_img = pygame.image.load(os.path.join(img_folder, "credits.png")).convert()
     init_img = pygame.image.load(os.path.join(img_folder, "init_dino.png")).convert()
-    hi_img = pygame.image.load(os.path.join(img_folder, "hi.png")).convert()
-    draw_text(DS, "F A J N A   G R A", 20, WIDTH / 2, HEIGHT / 3.5)
-    draw_text(DS, "press ENTER or LMB to start", 20, WIDTH / 2, HEIGHT / 1.5)
+    title_img = pygame.image.load(os.path.join(img_folder, "title.png")).convert()
     DS.blit(credits_img, (300, 70))
-    DS.blit(init_img, (475, 175))
-    DS.blit(hi_img, (525, 170))
+    DS.blit(title_img, (400, 100))
+    DS.blit(init_img, (440, 160))
+    draw_text(DS, "press ENTER or LMB to start", 20, WIDTH / 2, HEIGHT / 1.5)
     pygame.display.flip()
 
 score = 0
@@ -143,31 +142,26 @@ class Dino(pygame.sprite.Sprite):
         # CHANGING PLAYER IMAGE
         if dinoCurrentImage < 10:
             self.image = pygame.image.load(os.path.join(img_folder, "dino0.png")).convert()
-            self.image.set_colorkey(GREY)
         elif dinoCurrentImage <= 20:
             self.image = pygame.image.load(os.path.join(img_folder, "dino1.png")).convert()
-            self.image.set_colorkey(GREY)
         elif dinoCurrentImage <= 30:
             self.image = pygame.image.load(os.path.join(img_folder, "dino2.png")).convert()
-            self.image.set_colorkey(GREY)
         elif dinoCurrentImage <= 40:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino0.png")).convert()
-            self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
         elif dinoCurrentImage <= 50:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino1.png")).convert()
-            self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
         elif dinoCurrentImage <= 60:
             self.image = pygame.image.load(os.path.join(img_folder, "ducking_dino2.png")).convert()
-            self.image.set_colorkey(GREY)
             self.rect.center = (250, 315)  # you can set here the position of the dinosaur on the screen
             self.pos = vec(250, 320)
         elif dinoCurrentImage == 61:
             self.image = pygame.image.load(os.path.join(img_folder, "hedied.png")).convert()
-            self.image.set_colorkey(GREY)
+
+        self.image.set_colorkey(GREY)
 
 
 class Platform(pygame.sprite.Sprite):
